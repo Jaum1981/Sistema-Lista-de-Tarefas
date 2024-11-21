@@ -1,88 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Box, TextField, Button, Typography } from '@mui/material'; // Importando componentes do MUI
+import React, { useState } from 'react';
+import {
+    Box,
+    Button,
+    TextField,
+    Modal,
+    Typography,
+    Grid,
+} from '@mui/material';
 
 const EditModal = ({ task, onSave, onClose }) => {
-    const [updatedTask, setUpdatedTask] = useState({ ...task });
+    const [name, setName] = useState(task?.name || '');
+    const [cost, setCost] = useState(task?.cost || '');
+    const [deadline, setDeadline] = useState(task?.deadline || '');
 
-    useEffect(() => {
-        setUpdatedTask({ ...task }); // Atualiza o estado do modal com os dados da tarefa
-    }, [task]);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        if (name === 'cost') {
-            setUpdatedTask({ ...updatedTask, [name]: parseFloat(value) || 0 }); // Garante que o custo seja numérico
-        } else {
-            setUpdatedTask({ ...updatedTask, [name]: value });
-        }
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onSave(updatedTask); // Chama a função de salvar tarefa
+    const handleSave = () => {
+        const updatedTask = { ...task, name, cost, deadline };
+        onSave(updatedTask);
     };
 
     return (
-        <Modal open onClose={onClose}>
-            <Box sx={modalStyle}>
-                <Typography variant="h6" component="h2" sx={{ marginBottom: 2 }}>
+        <Modal
+            open={!!task}
+            onClose={onClose}
+            aria-labelledby="edit-task-modal-title"
+            aria-describedby="edit-task-modal-description"
+        >
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    bgcolor: 'background.paper',
+                    borderRadius: 2,
+                    boxShadow: 24,
+                    p: 4,
+                }}
+            >
+                <Typography id="edit-task-modal-title" variant="h6" component="h2">
                     Editar Tarefa
                 </Typography>
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        label="Nome"
-                        name="name"
-                        value={updatedTask.name}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                    />
-                    <TextField
-                        label="Custo"
-                        name="cost"
-                        value={updatedTask.cost}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                        type="number"
-                    />
-                    <TextField
-                        label="Data Limite"
-                        name="limitDate"
-                        value={updatedTask.limitDate}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                        type="date"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
-                        <Button variant="contained" color="primary" type="submit">
-                            Salvar
-                        </Button>
-                        <Button variant="outlined" color="secondary" onClick={onClose}>
+                <Box component="form" sx={{ mt: 2 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Nome"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                fullWidth
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Custo"
+                                type="number"
+                                value={cost}
+                                onChange={(e) => setCost(e.target.value)}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Data Limite"
+                                type="date"
+                                value={deadline}
+                                onChange={(e) => setDeadline(e.target.value)}
+                                fullWidth
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+                        <Button onClick={onClose} variant="outlined" color="secondary">
                             Cancelar
                         </Button>
+                        <Button onClick={handleSave} variant="contained" color="primary">
+                            Salvar
+                        </Button>
                     </Box>
-                </form>
+                </Box>
             </Box>
         </Modal>
     );
-};
-
-// Estilos para o modal
-const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    backgroundColor: 'white',
-    padding: 4,
-    boxShadow: 24,
-    borderRadius: 2,
 };
 
 export default EditModal;

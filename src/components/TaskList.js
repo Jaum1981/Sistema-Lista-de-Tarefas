@@ -33,13 +33,14 @@ const TaskList = () => {
     const handleOnDragEnd = (result) => {
         if (!result.destination) return;
 
-        const items = Array.from(tasks);  // Cria uma cópia da lista de tarefas
-        const [reorderedItem] = items.splice(result.source.index, 1);  // Remove a tarefa da posição original
-        items.splice(result.destination.index, 0, reorderedItem);  // Insere a tarefa na nova posição
+        const items = Array.from(tasks);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
 
         setTasks(items);
-        updateTaskOrder(items);  // Envia a nova ordem para o back-end
+        updateTaskOrder(items);
     };
+
 
     const updateTaskOrder = async (updatedTasks) => {
         const tasksWithNewOrder = updatedTasks.map((task, index) => ({
@@ -116,17 +117,29 @@ const TaskList = () => {
     };
 
     // Função para marcar a tarefa como concluída
-    const handleCompleteTask = (taskId) => {
+    const handleCompleteTask = async (taskId) => {
+        // Atualiza o estado local para uma resposta rápida ao usuário
         const updatedTasks = tasks.map((task) =>
             task.id === taskId ? { ...task, completed: !task.completed } : task
         );
 
-        // Mover tarefas concluídas para o final da lista
-        const completedTasks = updatedTasks.filter((task) => task.completed);
-        const incompleteTasks = updatedTasks.filter((task) => !task.completed);
+        // Atualiza o estado local
+        setTasks(updatedTasks);
 
-        setTasks([...incompleteTasks, ...completedTasks]);
+        // Envia a atualização para o backend
+        const taskToUpdate = updatedTasks.find((task) => task.id === taskId);
+
+        try {
+            await fetch(`http://localhost:8080/tarefas/${taskId}/completed`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(taskToUpdate.completed),
+            });
+        } catch (error) {
+            console.error('Erro ao atualizar status da tarefa:', error);
+        }
     };
+
 
     return (
         <Box sx={{ padding: 3 }}>

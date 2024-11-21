@@ -1,84 +1,85 @@
 import React, { useState } from 'react';
-import { Modal, Box, TextField, Button, Typography } from '@mui/material';
+import { Modal, Box, TextField, Button } from '@mui/material';
 
 const AddTaskModal = ({ onSave, onClose }) => {
-    const [newTask, setNewTask] = useState({
+    const [task, setTask] = useState({
         name: '',
-        cost: 0,
-        limitDate: '',
+        cost: '',
+        deadline: '',
     });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewTask({ ...newTask, [name]: value });
+    const isFormValid = task.name.trim() && task.cost.trim() && task.deadline.trim();
+
+    const handleChange = (field, value) => {
+        setTask({ ...task, [field]: value });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onSave(newTask); // Chama a função para salvar a tarefa
+    const handleSave = () => {
+        if (isFormValid) {
+            onSave(task);
+        }
     };
 
     return (
-        <Modal open onClose={onClose}>
-            <Box sx={modalStyle}>
-                <Typography variant="h6" component="h2">
-                    Adicionar Tarefa
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        label="Nome"
-                        name="name"
-                        value={newTask.name}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                    />
-                    <TextField
-                        label="Custo"
-                        name="cost"
-                        value={newTask.cost}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                        type="number"
-                    />
-                    <TextField
-                        label="Data Limite"
-                        name="limitDate"
-                        value={newTask.limitDate}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                        type="date"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
-                        <Button variant="contained" type="submit">
-                            Salvar
-                        </Button>
-                        <Button variant="outlined" onClick={onClose}>
-                            Cancelar
-                        </Button>
-                    </Box>
-                </form>
+        <Modal open={true} onClose={onClose}>
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    p: 4,
+                    borderRadius: 2,
+                }}
+            >
+                <TextField
+                    fullWidth
+                    label="Nome"
+                    value={task.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    margin="normal"
+                    required
+                />
+                <TextField
+                    fullWidth
+                    label="Custo"
+                    type="number"
+                    value={task.cost}
+                    onChange={(e) => handleChange('cost', e.target.value)}
+                    margin="normal"
+                    required
+                />
+                <TextField
+                    fullWidth
+                    label="Data Limite"
+                    type="date"
+                    value={task.deadline}
+                    onChange={(e) => handleChange('deadline', e.target.value)}
+                    margin="normal"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    required
+                />
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
+                    <Button variant="outlined" onClick={onClose}>
+                        Cancelar
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSave}
+                        disabled={!isFormValid} // Desabilita o botão se o formulário estiver inválido
+                    >
+                        Salvar
+                    </Button>
+                </Box>
             </Box>
         </Modal>
     );
-};
-
-// Estilos personalizados do modal
-const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    backgroundColor: 'white',
-    padding: 4,
-    boxShadow: 24,
-    borderRadius: 2,
 };
 
 export default AddTaskModal;
