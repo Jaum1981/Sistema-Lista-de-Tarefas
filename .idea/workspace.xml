@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="660bc923-fb94-462b-9334-ab157afe4530" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddTaskModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddTaskModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TaskForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TaskForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TaskList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TaskList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/style/TaskList.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/style/TaskList.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/style/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/style/theme.js" afterDir="false" />
-    </list>
+    <list default="true" id="660bc923-fb94-462b-9334-ab157afe4530" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,7 +84,7 @@
       <workItem from="1732187215666" duration="226000" />
       <workItem from="1732188056383" duration="5015000" />
       <workItem from="1732195462436" duration="662000" />
-      <workItem from="1732196268350" duration="597000" />
+      <workItem from="1732196268350" duration="825000" />
     </task>
     <servers />
   </component>
