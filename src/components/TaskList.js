@@ -4,7 +4,7 @@ import { Box, Button, CircularProgress, Typography, Table, TableBody, TableCell,
 import TaskRow from './TaskRow';
 import EditModal from './EditModal';
 import AddTaskModal from './AddTaskModal';
-import './style/TaskList.css';
+import './style/TaskList.css';  // Certifique-se de que o CSS esteja sendo importado
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
@@ -37,10 +37,9 @@ const TaskList = () => {
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
 
-        setTasks(items);
-        updateTaskOrder(items);
+        setTasks(items); // Atualiza a lista de tarefas
+        updateTaskOrder(items); // Atualiza a ordem no backend
     };
-
 
     const updateTaskOrder = async (updatedTasks) => {
         const tasksWithNewOrder = updatedTasks.map((task, index) => ({
@@ -118,15 +117,12 @@ const TaskList = () => {
 
     // Função para marcar a tarefa como concluída
     const handleCompleteTask = async (taskId) => {
-        // Atualiza o estado local para uma resposta rápida ao usuário
         const updatedTasks = tasks.map((task) =>
             task.id === taskId ? { ...task, completed: !task.completed } : task
         );
 
-        // Atualiza o estado local
         setTasks(updatedTasks);
 
-        // Envia a atualização para o backend
         const taskToUpdate = updatedTasks.find((task) => task.id === taskId);
 
         try {
@@ -140,7 +136,6 @@ const TaskList = () => {
         }
     };
 
-
     return (
         <Box sx={{ padding: 3 }}>
             <Typography variant="h4" gutterBottom align="center">
@@ -151,6 +146,10 @@ const TaskList = () => {
                     variant="contained"
                     color="primary"
                     onClick={handleAddTask}
+                    sx={{
+                        textTransform: 'none',
+                        borderRadius: 8,
+                    }}
                 >
                     Adicionar Tarefa
                 </Button>
@@ -166,7 +165,7 @@ const TaskList = () => {
                         {(provided) => (
                             <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 2, padding: 2 }}>
                                 <Table>
-                                    <TableHead sx={{ backgroundColor: '#333', color: '#fff' }}>
+                                    <TableHead sx={{ backgroundColor: '#f4f4f4', color: '#333' }}>
                                         <TableRow>
                                             <TableCell>Concluída</TableCell>
                                             <TableCell>Nome</TableCell>
@@ -177,16 +176,13 @@ const TaskList = () => {
                                     </TableHead>
                                     <TableBody ref={provided.innerRef} {...provided.droppableProps}>
                                         {tasks.map((task, index) => (
-                                            <Draggable key={task.id.toString()} draggableId={task.id.toString()} index={index}>
+                                            <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
                                                 {(provided) => (
                                                     <TableRow
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
-                                                        sx={{
-                                                            textDecoration: task.completed ? 'line-through' : 'none',
-                                                            backgroundColor: task.completed ? '#f1f1f1' : 'white',
-                                                        }}
+                                                        className={`table-row ${task.completed ? 'completed-task' : ''} ${task.cost >= 1000 ? 'expensive-task' : ''}`}
                                                     >
                                                         <TableCell>
                                                             <Checkbox

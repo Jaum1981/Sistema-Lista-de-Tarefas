@@ -16,7 +16,12 @@ const TaskForm = ({ onTaskUpdated, editingTask, onCancel }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const task = { name, cost, limitDate };
+
+        const task = {
+            name,
+            cost: String(cost), // Converte 'cost' para string
+            limitDate
+        };
 
         try {
             if (editingTask) {
@@ -34,14 +39,35 @@ const TaskForm = ({ onTaskUpdated, editingTask, onCancel }) => {
         }
     };
 
+
     return (
         <form onSubmit={handleSubmit}>
             <h2>{editingTask ? 'Editar Tarefa' : 'Adicionar Nova Tarefa'}</h2>
-            <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} required />
-            <input type="number" placeholder="Custo" value={cost} onChange={(e) => setCost(e.target.value)} required />
-            <input type="date" value={limitDate} onChange={(e) => setLimitDate(e.target.value)} required />
+            <input
+                type="text"
+                placeholder="Nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+            />
+            <input
+                type="number"
+                placeholder="Custo"
+                value={cost}
+                onChange={(e) => {
+                    const value = parseFloat(e.target.value); // Converte para número
+                    setCost(value >= 0 ? value : ''); // Aceita somente valores não negativos
+                }}
+                required
+            />
+            <input
+                type="date"
+                value={limitDate}
+                onChange={(e) => setLimitDate(e.target.value)}
+                required
+            />
             <button type="submit">{editingTask ? 'Salvar' : 'Adicionar'}</button>
-            {editingTask && <button onClick={onCancel}>Cancelar</button>}
+            {editingTask && <button type="button" onClick={onCancel}>Cancelar</button>}
         </form>
     );
 };

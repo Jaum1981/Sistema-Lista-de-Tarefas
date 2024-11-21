@@ -13,14 +13,15 @@ th {
     text-align: left;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+tr {
+    transition: background-color 0.3s ease;
 }
 
 tr:hover {
     background-color: #f1f1f1;
 }
 
+/* Estilo para os botões */
 button {
     margin: 0 5px;
     padding: 5px 10px;
@@ -32,4 +33,27 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+/* Fundo padrão para todas as linhas */
+.table-row {
+    background-color: white;  /* Cor padrão para todas as linhas */
+}
+
+/* Para tarefas com custo >= 1000 */
+.table-row.expensive-task {
+    background-color: #fff3cd;  /* Amarelo claro para tarefas com custo >= 1000 */
+}
+
+/* Para tarefas concluídas */
+.table-row.completed-task {
+    text-decoration: line-through; /* traceja as tarefas concluídas */
+}
+
+.table-row.odd {
+    background-color: #f9f9f9;  /* Cor de fundo para linhas ímpares */
+}
+
+.table-row.even {
+    background-color: white;  /* Cor de fundo para linhas pares */
 }

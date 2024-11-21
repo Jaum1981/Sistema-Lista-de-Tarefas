@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Box, TextField, Button } from '@mui/material';
+import { Modal, Box, TextField, Button, FormHelperText } from '@mui/material';
 
 const AddTaskModal = ({ onSave, onClose }) => {
     const [task, setTask] = useState({
@@ -8,7 +8,13 @@ const AddTaskModal = ({ onSave, onClose }) => {
         deadline: '',
     });
 
-    const isFormValid = task.name.trim() && task.cost.trim() && task.deadline.trim();
+    const [error, setError] = useState({
+        name: false,
+        cost: false,
+        deadline: false,
+    });
+
+    const isFormValid = task.name.trim() && task.cost !== '' && task.deadline.trim();
 
     const handleChange = (field, value) => {
         setTask({ ...task, [field]: value });
@@ -16,7 +22,29 @@ const AddTaskModal = ({ onSave, onClose }) => {
 
     const handleSave = () => {
         if (isFormValid) {
-            onSave(task);
+            const taskWithValidCost = {
+                ...task,
+                cost: parseFloat(task.cost), // Garantir que o custo seja um número
+            };
+
+            if (taskWithValidCost.cost < 0) {
+                setError({ ...error, cost: true });
+                alert('O custo não pode ser negativo.');
+            } else {
+                onSave(taskWithValidCost);
+                setError({
+                    name: false,
+                    cost: false,
+                    deadline: false,
+                }); // Reset de erros ao salvar
+            }
+        } else {
+            // Setar erros de campo se necessário
+            setError({
+                name: !task.name.trim(),
+                cost: task.cost === '' || task.cost < 0,
+                deadline: !task.deadline.trim(),
+            });
         }
     };
 
@@ -42,6 +70,8 @@ const AddTaskModal = ({ onSave, onClose }) => {
                     onChange={(e) => handleChange('name', e.target.value)}
                     margin="normal"
                     required
+                    error={error.name}
+                    helperText={error.name && 'Nome é obrigatório.'}
                 />
                 <TextField
                     fullWidth
@@ -51,6 +81,9 @@ const AddTaskModal = ({ onSave, onClose }) => {
                     onChange={(e) => handleChange('cost', e.target.value)}
                     margin="normal"
                     required
+                    error={error.cost}
+                    helperText={error.cost && 'Custo deve ser um número válido e não negativo.'}
+                    inputProps={{ min: 0 }}  // Impede a entrada de valores negativos
                 />
                 <TextField
                     fullWidth
@@ -63,6 +96,8 @@ const AddTaskModal = ({ onSave, onClose }) => {
                         shrink: true,
                     }}
                     required
+                    error={error.deadline}
+                    helperText={error.deadline && 'Data limite é obrigatória.'}
                 />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                     <Button variant="outlined" onClick={onClose}>
@@ -72,7 +107,7 @@ const AddTaskModal = ({ onSave, onClose }) => {
                         variant="contained"
                         color="primary"
                         onClick={handleSave}
-                        disabled={!isFormValid} // Desabilita o botão se o formulário estiver inválido
+                        disabled={!isFormValid}
                     >
                         Salvar
                     </Button>

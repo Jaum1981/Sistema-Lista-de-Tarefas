@@ -6,14 +6,24 @@ import {
     Modal,
     Typography,
     Grid,
+    FormHelperText,
+    FormControl,
 } from '@mui/material';
 
 const EditModal = ({ task, onSave, onClose }) => {
     const [name, setName] = useState(task?.name || '');
     const [cost, setCost] = useState(task?.cost || '');
     const [deadline, setDeadline] = useState(task?.deadline || '');
+    const [error, setError] = useState(null);  // Novo estado para erros
 
     const handleSave = () => {
+        // Verifica se o custo é negativo
+        if (cost < 0) {
+            setError('O custo não pode ser negativo!');
+            return;
+        }
+        setError(null);  // Limpa o erro caso o custo seja válido
+
         const updatedTask = { ...task, name, cost, deadline };
         onSave(updatedTask);
     };
@@ -53,13 +63,17 @@ const EditModal = ({ task, onSave, onClose }) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                label="Custo"
-                                type="number"
-                                value={cost}
-                                onChange={(e) => setCost(e.target.value)}
-                                fullWidth
-                            />
+                            <FormControl fullWidth error={!!error}>
+                                <TextField
+                                    label="Custo"
+                                    type="number"
+                                    value={cost}
+                                    onChange={(e) => setCost(e.target.value)}
+                                    fullWidth
+                                    inputProps={{ min: 0 }}  // Impede valores negativos
+                                />
+                                {error && <FormHelperText>{error}</FormHelperText>} {/* Exibe a mensagem de erro */}
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField

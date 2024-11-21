@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="660bc923-fb94-462b-9334-ab157afe4530" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddTaskModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddTaskModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/EditModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TaskForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TaskForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/TaskList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TaskList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/style/TaskList.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/style/TaskList.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/style/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/style/theme.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +91,9 @@
       <workItem from="1732020980145" duration="2720000" />
       <workItem from="1732123803235" duration="5009000" />
       <workItem from="1732187215666" duration="226000" />
-      <workItem from="1732188056383" duration="1676000" />
+      <workItem from="1732188056383" duration="5015000" />
+      <workItem from="1732195462436" duration="662000" />
+      <workItem from="1732196268350" duration="597000" />
     </task>
     <servers />
   </component>
