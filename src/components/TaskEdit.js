@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import {fetchTaskById} from "../services/api";
 
 const TaskEdit = () => {
     const { id } = useParams();
@@ -9,7 +10,7 @@ const TaskEdit = () => {
     useEffect(() => {
         const fetchTask = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/tarefas/${id}`);
+                const response = await fetchTaskById(id);
                 const data = await response.json();
                 setTask(data);
             } catch (error) {

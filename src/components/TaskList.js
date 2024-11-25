@@ -4,7 +4,7 @@ import { Box, Button, CircularProgress, Typography, Table, TableBody, TableCell,
 import TaskRow from './TaskRow';
 import EditModal from './EditModal';
 import AddTaskModal from './AddTaskModal';
-import './style/TaskList.css';  // Certifique-se de que o CSS esteja sendo importado
+import './style/TaskList.css';
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
