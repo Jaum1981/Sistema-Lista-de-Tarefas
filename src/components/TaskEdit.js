@@ -9,7 +9,7 @@ const TaskEdit = () => {
     useEffect(() => {
         const fetchTask = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/tarefas/${id}`);
+                const response = await fetch(`${API_BASE_URL}/tarefas/${id}`);
                 const data = await response.json();
                 setTask(data);
             } catch (error) {

@@ -17,7 +17,7 @@ const TaskList = () => {
         const fetchTasks = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch('http://localhost:8080/tarefas');
+                const response = await fetch('${API_BASE_URL}/tarefas');
                 const data = await response.json();
                 setTasks(data.sort((a, b) => a.ordem - b.ordem)); // Ordena as tarefas
             } catch (error) {
