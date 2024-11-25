@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="660bc923-fb94-462b-9334-ab157afe4530" name="Changes" comment="variavel de ambiente">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TaskEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TaskEdit.js" afterDir="false" />
+    <list default="true" id="660bc923-fb94-462b-9334-ab157afe4530" name="Changes" comment="variavel de ambiente..">
       <change beforePath="$PROJECT_DIR$/src/components/TaskList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TaskList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,7 +93,7 @@
       <workItem from="1732282768990" duration="1089000" />
       <workItem from="1732284491570" duration="353000" />
       <workItem from="1732301354047" duration="2393000" />
-      <workItem from="1732539382645" duration="1802000" />
+      <workItem from="1732539382645" duration="1989000" />
     </task>
     <task id="LOCAL-00001" summary="aaaaaaaa">
       <option name="closed" value="true" />
@@ -129,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732541026002</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="variavel de ambiente..">
+      <option name="closed" value="true" />
+      <created>1732541513575</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732541513575</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +146,7 @@
     <MESSAGE value="eu já estou louco com esse deploy" />
     <MESSAGE value="chamada dos metodos de api.js em taskform" />
     <MESSAGE value="variavel de ambiente" />
-    <option name="LAST_COMMIT_MESSAGE" value="variavel de ambiente" />
+    <MESSAGE value="variavel de ambiente.." />
+    <option name="LAST_COMMIT_MESSAGE" value="variavel de ambiente.." />
   </component>
 </project>
