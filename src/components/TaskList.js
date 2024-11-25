@@ -17,7 +17,7 @@ const TaskList = () => {
         const fetchTasks = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch('${API_BASE_URL}/tarefas');
+                const response = await fetch(`${API_BASE_URL}/tarefas`);
                 const data = await response.json();
                 setTasks(data.sort((a, b) => a.ordem - b.ordem)); // Ordena as tarefas
             } catch (error) {
@@ -48,7 +48,7 @@ const TaskList = () => {
         }));
 
         try {
-            await fetch('${API_BASE_URL}/tarefas/reordenar', {
+            await fetch(`${API_BASE_URL}/tarefas/reordenar`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(tasksWithNewOrder),
@@ -100,7 +100,7 @@ const TaskList = () => {
         newTask.cost = parseFloat(newTask.cost) || 0;
 
         try {
-            const response = await fetch('${API_BASE_URL}/tarefas', {
+            const response = await fetch(`${API_BASE_URL}/tarefas`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newTask),
