@@ -1,75 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { createTask, updateTask } from '../services/api';
+import { fetchTasks, deleteTask, reorderTasks } from '../services/api';
+import TaskForm from './TaskForm';
 
-const TaskForm = ({ onTaskUpdated, editingTask, onCancel }) => {
-    const [name, setName] = useState('');
-    const [cost, setCost] = useState('');
-    const [limitDate, setLimitDate] = useState('');
+const TaskManager = () => {
+    const [tasks, setTasks] = useState([]);
+    const [editingTask, setEditingTask] = useState(null);
 
+    // Carrega as tarefas ao montar o componente
     useEffect(() => {
-        if (editingTask) {
-            setName(editingTask.name);
-            setCost(editingTask.cost);
-            setLimitDate(editingTask.limitDate.split('T')[0]); // Formata data
-        }
-    }, [editingTask]);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const task = {
-            name,
-            cost: String(cost), // Converte 'cost' para string
-            limitDate
+        const loadTasks = async () => {
+            const tasksData = await fetchTasks();
+            setTasks(tasksData);
         };
+        loadTasks();
+    }, []);
 
-        try {
-            if (editingTask) {
-                await updateTask(editingTask.id, task);
-            } else {
-                await createTask(task);
+    // Função para excluir uma tarefa
+    const handleDeleteTask = async (id) => {
+        if (window.confirm('Tem certeza que deseja excluir esta tarefa?')) {
+            try {
+                await deleteTask(id);
+                setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+            } catch (error) {
+                alert('Erro ao excluir tarefa.');
             }
-            onTaskUpdated();
-            setName('');
-            setCost('');
-            setLimitDate('');
-            onCancel();
-        } catch (error) {
-            alert('Erro ao salvar tarefa. Verifique se o nome é único.');
         }
     };
 
+    // Função para iniciar a edição de uma tarefa
+    const handleEditTask = (task) => {
+        setEditingTask(task);
+    };
+
+    // Função para atualizar a lista após salvar ou editar
+    const handleTaskUpdated = async () => {
+        const tasksData = await fetchTasks();
+        setTasks(tasksData);
+    };
+
+    // Função para cancelar a edição
+    const handleCancelEdit = () => {
+        setEditingTask(null);
+    };
+
+    // Função para reordenar as tarefas
+    const handleReorderTasks = async (newOrder) => {
+        try {
+            await reorderTasks(newOrder);
+            setTasks(newOrder);
+        } catch (error) {
+            alert('Erro ao reordenar tarefas.');
+        }
+    };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>{editingTask ? 'Editar Tarefa' : 'Adicionar Nova Tarefa'}</h2>
-            <input
-                type="text"
-                placeholder="Nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
+        <div>
+            <h1>Gerenciador de Tarefas</h1>
+            <TaskForm
+                onTaskUpdated={handleTaskUpdated}
+                editingTask={editingTask}
+                onCancel={handleCancelEdit}
             />
-            <input
-                type="number"
-                placeholder="Custo"
-                value={cost}
-                onChange={(e) => {
-                    const value = parseFloat(e.target.value); // Converte para número
-                    setCost(value >= 0 ? value : ''); // Aceita somente valores não negativos
-                }}
-                required
-            />
-            <input
-                type="date"
-                value={limitDate}
-                onChange={(e) => setLimitDate(e.target.value)}
-                required
-            />
-            <button type="submit">{editingTask ? 'Salvar' : 'Adicionar'}</button>
-            {editingTask && <button type="button" onClick={onCancel}>Cancelar</button>}
-        </form>
+            <ul>
+                {tasks.map((task) => (
+                    <li key={task.id}>
+                        <strong>{task.name}</strong> - R$ {task.cost} - {task.limitDate}
+                        <button onClick={() => handleEditTask(task)}>Editar</button>
+                        <button onClick={() => handleDeleteTask(task.id)}>Excluir</button>
+                    </li>
+                ))}
+            </ul>
+            {/* Exemplo de reordenação */}
+            <button onClick={() => handleReorderTasks([...tasks].reverse())}>
+                Reordenar Tarefas
+            </button>
+        </div>
     );
 };
 
-export default TaskForm;
+export default TaskManager;
