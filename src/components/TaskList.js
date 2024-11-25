@@ -7,6 +7,7 @@ import AddTaskModal from './AddTaskModal';
 import './style/TaskList.css';
 
 const TaskList = () => {
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const [tasks, setTasks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [currentTask, setCurrentTask] = useState(null);

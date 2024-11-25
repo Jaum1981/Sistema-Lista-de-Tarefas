@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="660bc923-fb94-462b-9334-ab157afe4530" name="Changes" comment="fim?">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="660bc923-fb94-462b-9334-ab157afe4530" name="Changes" comment="'' para ``">
       <change beforePath="$PROJECT_DIR$/src/components/TaskList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TaskList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +93,7 @@
       <workItem from="1732282768990" duration="1089000" />
       <workItem from="1732284491570" duration="353000" />
       <workItem from="1732301354047" duration="2393000" />
-      <workItem from="1732539382645" duration="2859000" />
+      <workItem from="1732539382645" duration="3061000" />
     </task>
     <task id="LOCAL-00001" summary="aaaaaaaa">
       <option name="closed" value="true" />
@@ -152,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732542095362</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="'' para ``">
+      <option name="closed" value="true" />
+      <created>1732542521560</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732542521560</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +173,7 @@
     <MESSAGE value="variavel de ambiente.." />
     <MESSAGE value="chamada do metodo fetchTask de api em TaskList" />
     <MESSAGE value="fim?" />
-    <option name="LAST_COMMIT_MESSAGE" value="fim?" />
+    <MESSAGE value="'' para ``" />
+    <option name="LAST_COMMIT_MESSAGE" value="'' para ``" />
   </component>
 </project>
