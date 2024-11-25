@@ -17,7 +17,7 @@ const TaskList = () => {
         const fetchTasks = async () => {
             setIsLoading(true);
             try {
-                const response = await fetchTasks();
+                const response = await fetch('${API_BASE_URL}/tarefas');
                 const data = await response.json();
                 setTasks(data.sort((a, b) => a.ordem - b.ordem)); // Ordena as tarefas
             } catch (error) {
@@ -48,7 +48,7 @@ const TaskList = () => {
         }));
 
         try {
-            await fetch('http://localhost:8080/tarefas/reordenar', {
+            await fetch('${API_BASE_URL}/tarefas/reordenar', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(tasksWithNewOrder),
@@ -61,7 +61,7 @@ const TaskList = () => {
     const handleDeleteTask = async (taskId) => {
         if (window.confirm('Tem certeza que deseja excluir esta tarefa?')) {
             try {
-                await fetch(`http://localhost:8080/tarefas/${taskId}`, { method: 'DELETE' });
+                await fetch(`${API_BASE_URL}/tarefas/${taskId}`, { method: 'DELETE' });
                 setTasks(tasks.filter((task) => task.id !== taskId));
             } catch (error) {
                 console.error('Erro ao excluir tarefa:', error);
@@ -78,7 +78,7 @@ const TaskList = () => {
         updatedTask.cost = parseFloat(updatedTask.cost) || 0;
 
         try {
-            await fetch(`http://localhost:8080/tarefas/${updatedTask.id}`, {
+            await fetch(`${API_BASE_URL}/tarefas/${updatedTask.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatedTask),
@@ -100,7 +100,7 @@ const TaskList = () => {
         newTask.cost = parseFloat(newTask.cost) || 0;
 
         try {
-            const response = await fetch('http://localhost:8080/tarefas', {
+            const response = await fetch('${API_BASE_URL}/tarefas', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newTask),
@@ -126,7 +126,7 @@ const TaskList = () => {
         const taskToUpdate = updatedTasks.find((task) => task.id === taskId);
 
         try {
-            await fetch(`http://localhost:8080/tarefas/${taskId}/completed`, {
+            await fetch(`${API_BASE_URL}/tarefas/${taskId}/completed`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(taskToUpdate.completed),
